@@ -21,9 +21,9 @@ for artist in artists:
     i += 1
     print(i)
     print('__________')
-    producer.send(topic_artist, artist)
+    # producer.send(topic_artist, artist)
     id = artist['id']
-    albums = spotipyGetData.album_by_artists(id)
+    # albums = spotipyGetData.album_by_artists(id)
     for album in albums:
         producer.send(topic_album, album)
         id_album = album['id']

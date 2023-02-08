@@ -26,8 +26,8 @@ spark = SparkSession \
     .builder \
     .appName("Spotify") \
     .config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.12:3.0.2") \
-    .config("spark.mongodb.input.uri", "mongodb+srv://bkfashionshop:project1@bigdata.mncihbp.mongodb.net/test.Tracks")\
-    .config("spark.mongodb.output.uri", "mongodb+srv://bkfashionshop:project1@bigdata.mncihbp.mongodb.net/test.Tracks")\
+    .config("spark.mongodb.input.uri", "mongodb+srv://nghiango:nghiango23102001@cluster0.pjnmw.mongodb.net/BIGDATA.Tracks")\
+    .config("spark.mongodb.output.uri", "mongodb+srv://nghiango:nghiango23102001@cluster0.pjnmw.mongodb.net/BIGDATA.Tracks")\
     .getOrCreate() \
 
 spark.sparkContext.setLogLevel("ERROR")
@@ -90,10 +90,7 @@ schema = StructType([
 table = songs_df.select(
     from_json(songs_df.value.cast("string"), schema).alias("tracks"))
 
-# print("=====================")
 query = table.select("tracks.*")
-# print(query.printSchema())
-# print("=====================")
 
 transaction_detail_write_stream = query \
     .writeStream \

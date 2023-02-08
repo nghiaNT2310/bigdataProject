@@ -2,7 +2,6 @@ import findspark
 from pyspark.sql.types import *
 from pyspark.sql.functions import *
 from pyspark.sql import SparkSession
-import logging
 import os
 
 os.environ['PYSPARK_SUBMIT_ARGS'] = '--packages org.apache.spark:spark-streaming-kafka-0-10_2.12:3.3.1,org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2 pyspark-shell'
@@ -26,8 +25,8 @@ spark = SparkSession \
     .builder \
     .appName("Spotify") \
     .config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.12:3.0.2") \
-    .config("spark.mongodb.input.uri", "mongodb+srv://bkfashionshop:project1@bigdata.mncihbp.mongodb.net/test.Albums")\
-    .config("spark.mongodb.output.uri", "mongodb+srv://bkfashionshop:project1@bigdata.mncihbp.mongodb.net/test.Albums")\
+    .config("spark.mongodb.input.uri", "mongodb+srv://nghiango:nghiango23102001@cluster0.pjnmw.mongodb.net/BIGDATA.Albums")\
+    .config("spark.mongodb.output.uri", "mongodb+srv://nghiango:nghiango23102001@cluster0.pjnmw.mongodb.net/BIGDATA.Albums")\
     .getOrCreate() \
 
 spark.sparkContext.setLogLevel("ERROR")
@@ -78,10 +77,7 @@ schema = StructType([
 table = songs_df.select(
     from_json(songs_df.value.cast("string"), schema).alias("albums"))
 
-print("=====================")
 query = table.select("albums.release_date", "albums.name")
-print(query.printSchema())
-print("=====================")
 
 transaction_detail_write_stream = query \
     .writeStream \
